@@ -71,24 +71,26 @@ void Robot::Draw() {
         glEnd();
     glPopMatrix();
 
+    // Perna Esq e Dir.
     glPushMatrix();
         glTranslatef(1.3f, -5.0f, 0.0f);
         glRotatef(90, 1.0f, 0.0f, 0.0f);
         glutSolidTorus(0.3f, 0.6f, 100, 100);
     glPopMatrix();
+
     glPushMatrix();
         glTranslatef(-1.3f, -5.0f, 0.0f);
         glRotatef(90, 1.0f, 0.0f, 0.0f);
         glutSolidTorus(0.3f, 0.6f, 100, 100);
     glPopMatrix();
 
-    // Perna Esq e Dir.
     for (double count = -5.5; count >= -7; count -= 0.5) {
         glPushMatrix();
             glTranslatef(1.3f, count, 0.0f);
             glRotatef(90, 1.0f, 0.0f, 0.0f);
             glutSolidTorus(0.2f, 0.4f, 100, 100);
         glPopMatrix();
+        
         glPushMatrix();
             glTranslatef(-1.3f, count, 0.0f);
             glRotatef(90, 1.0f, 0.0f, 0.0f);

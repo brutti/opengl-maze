@@ -9,4 +9,4 @@ robot:
 	$(CC) -c $(SRC_DIR)robot.cpp
 	mv robot.o $(SRC_DIR)
 clean:
-	rm -rf *.o main
+	rm -rf $(SRC_DIR)*.o main
