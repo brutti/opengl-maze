@@ -11,6 +11,8 @@ Robot r;
 
 void Init() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glEnable(GL_BLEND);
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     // Habilita o z-buffer
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
@@ -22,7 +24,7 @@ void onDisplay() {
     glLoadIdentity();
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    gluLookAt(0.0, 0.0, -30.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+    gluLookAt(0.0, 0.0, -50.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
     
     r.Draw();
 
