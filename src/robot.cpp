@@ -8,7 +8,7 @@ void Robot::Draw() {
 
     // Cabeça
     glPushMatrix();
-        glColor3f(0.55f, 0.65f, 0.73f);
+        glColor3fv(body_color);
         glTranslatef(0.0, 7.0f, 0.0f);
         glRotatef(-90, 1.0f, 0.0f, 0.0f);
         gluCylinder(cylinder, 1.5f, 1.5f, 6.0f, 100, 100);
@@ -42,47 +42,85 @@ void Robot::Draw() {
 
     // Ombros
     glPushMatrix();
-        glColor3f(0.35f, 0.45f, 0.53f);
+        glColor3fv(members_color);
         glTranslatef(-3.5f, 4.0f, 0.0f);
         glRotatef(90, 0.0f, 1.0f, 0.0f);
         glutSolidTorus(0.35f, 0.75f, 100, 100);
     glPopMatrix();
 
     glPushMatrix();
-        glColor3f(0.35f, 0.45f, 0.53f);
+        glColor3fv(members_color);
         glTranslatef(3.5f, 4.0f, 0.0f);
         glRotatef(90, 0.0f, 1.0f, 0.0f);
         glutSolidTorus(0.35f, 0.75f, 100, 100);
     glPopMatrix();
 
-    // Braço esquerdo
     glPushMatrix();
-        glTranslatef(3.5f, 4.5f, 0.0f);
-        glRotatef(90, 1.0f, 0.0f, 0.0f);
-        glRotatef(15, 1.0f, 1.0f, 0.0f);
-        gluCylinder(cylinder, 0.5f, 0.5f, 10.0f, 100, 100);
+        // Braço esquerdo
+        glPushMatrix();
+            glColor3fv(members_color);
+            glTranslatef(3.5f, 4.5f, 0.0f);
+            glRotatef(90, 1.0f, 0.0f, 0.0f);
+            glRotatef(15, 1.0f, 1.0f, 0.0f);
+            gluCylinder(cylinder, 0.5f, 0.5f, 10.0f, 100, 100);
+        glPopMatrix();
+
+        // Mão esquerda
+        glPushMatrix();
+        glPopMatrix();
     glPopMatrix();
 
-    // Braço direito
     glPushMatrix();
-        glTranslatef(-3.5f, 4.5f, 0.0f);
-        glRotatef(90, 1.0f, 0.0f, 0.0f);
-        glRotatef(-15, 1.0f, 1.0f, 0.0f);
-        gluCylinder(cylinder, 0.5f, 0.5f, 10.0f, 100, 100);
+        // Braço direito
+        glColor3fv(members_color);
+        glPushMatrix();
+            glTranslatef(-3.5f, 4.5f, 0.0f);
+            glRotatef(90, 1.0f, 0.0f, 0.0f);
+            glRotatef(-15, 1.0f, 1.0f, 0.0f);
+            gluCylinder(cylinder, 0.5f, 0.5f, 10.0f, 100, 100);
+        glPopMatrix();
+
+        // Mão direita
+        glPushMatrix();
+        glPopMatrix();
     glPopMatrix();
 
-    // Perna direita
     glPushMatrix();
-        glTranslatef(-1.6f, -5.0f, 0.0f);
-        glRotatef(90, 1.0f, 0.0f, 0.0f);
-        gluCylinder(cylinder, 0.5f, 0.5f, 12.0f, 100, 100);
+        glTranslatef(0, 0, 2);
+        // Perna direita
+        glPushMatrix();
+            glColor3fv(members_color);
+            glTranslatef(-1.6f, -5.0f, 0.0f);
+            glRotatef(90, 1.0f, 0.0f, 0.0f);
+            gluCylinder(cylinder, 0.5f, 0.5f, 10.0f, 100, 100);
+        glPopMatrix();
+
+        // Pé direito
+        glPushMatrix();
+            glColor3fv(body_color);
+            glTranslatef(-1.6f, -16.0f, 0.0f);
+            glRotatef(-90, 1.0f, 0.0f, 0.0f);
+            SOLID_CLOSED_CYLINDER(cylinder, 1.5f, 1.0f, 1.0f, 100, 100);
+        glPopMatrix();
     glPopMatrix();
 
-    // Perna esquerda
     glPushMatrix();
-        glTranslatef(1.6f, -5.0f, 0.0f);
-        glRotatef(90, 1.0f, 0.0f, 0.0f);
-        gluCylinder(cylinder, 0.5f, 0.5f, 12.0f, 100, 100);
+        glTranslatef(0, 0, 2);
+        // Perna esquerda
+        glPushMatrix();
+            glColor3fv(members_color);
+            glTranslatef(1.6f, -5.0f, 0.0f);
+            glRotatef(90, 1.0f, 0.0f, 0.0f);
+            gluCylinder(cylinder, 0.5f, 0.5f, 10.0f, 100, 100);
+        glPopMatrix();
+
+        // Pé esquerdo
+        glPushMatrix();
+            glColor3fv(body_color);
+            glTranslatef(1.6f, -16.0f, 0.0f);
+            glRotatef(-90, 1.0f, 0.0f, 0.0f);
+            SOLID_CLOSED_CYLINDER(cylinder, 1.5f, 1.0f, 1.0f, 100, 100);
+        glPopMatrix();
     glPopMatrix();
 }
 
