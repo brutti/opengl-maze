@@ -15,6 +15,7 @@ const GLfloat members_color[3] = {0.35f, 0.45f, 0.53};
 
 class Robot {
 public:
+    GLfloat x, y, z;
     void Draw();
     void Walk();
 };
