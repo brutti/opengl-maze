@@ -1,3 +1,10 @@
+/*
+*   Universidade Federal da Fronteira Sul
+*   Ciência da Computação 7ª Fase - Computação Gráfica 2017.II
+*   Trabalho 1
+*   Acadêmico: Nicholas Sangoi Brutti (1421101033)
+*/
+
 #ifndef h_ROBOT
 #define h_ROBOT
 
@@ -15,7 +22,9 @@ const GLfloat members_color[3] = {0.35f, 0.45f, 0.53};
 
 class Robot {
 public:
+    bool isWalking = false, flag = false;
     GLfloat x, y, z;
+    GLfloat rotx = 0, roty = 0, rotz = 0;
     void Draw();
     void Walk();
 };

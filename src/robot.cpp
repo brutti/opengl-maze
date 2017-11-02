@@ -1,12 +1,62 @@
+/*
+*   Universidade Federal da Fronteira Sul
+*   Ciência da Computação 7ª Fase - Computação Gráfica 2017.II
+*   Trabalho 1
+*   Acadêmico: Nicholas Sangoi Brutti (1421101033)
+*/
+
 #include <GL/freeglut.h>
 #include <cstdio>
+#include <math.h>
 #include "robot.h"
+#include "objects.h"
 
 void Robot::Draw() {
     GLUquadricObj *sphere = gluNewQuadric();
     GLUquadricObj *cylinder = gluNewQuadric();
+
+    if(!isWalking)
+        rotx = .0;
+
     // Cabeça
     glPushMatrix();
+        glRotatef(rotx, 0.0f, 1.0f, 0.05f);
+        // Boca
+        /*glPushMatrix();
+            glColor3f(1.0f, 0.0f, 0.0f);
+            glRotatef(-180, 1.0f, 0.0f, 0.0f);
+            glTranslatef(0.0f, -10.0f, 1.5f);
+            glScalef(1.5f, 0.5f, 0.0f);
+            gluCylinder(cylinder, 1.3f, 1.1f, 0.0f, 100, 100);
+        glPopMatrix();*/
+
+        // Olhos
+        glPushMatrix();
+            // Cilindro que fica envolta dos olhos
+            glPushMatrix();
+                glColor3fv(members_color);
+                glTranslatef(0.0f, 12.2f, -2.0f);
+                glScalef(1.3, 0.75, 1);
+                gluCylinder(cylinder, 1.2f, 1.1f, 2.0f, 100, 100);
+            glPopMatrix();
+
+            glColor3f(1.0f, 1.0f, 0.6f);
+            glRotatef(180, 0.0f, 1.0f, 0.0f);
+            // Olho esquerdo
+            glTranslatef(-0.5f, 12.0f, 1.2f);
+            glutSolidSphere(0.6, 100, 100);
+            glColor3f(0.0f, 0.0f, 0.0f);
+            glTranslatef(0.0f, 0.1f, 0.5f);
+            glutSolidSphere(0.2, 100, 100);
+            // Olho direito
+            glColor3f(1.0f, 1.0f, 0.6f);
+            glTranslatef(1.0f, 0.0f, -0.5f);
+            glutSolidSphere(0.6, 100, 100);
+            glColor3f(0.0f, 0.0f, 0.0f);
+            glTranslatef(0.0f, 0.0f, 0.5f);
+            glutSolidSphere(0.2, 100, 100);
+        glPopMatrix();
+
         glColor3fv(body_color);
         glTranslatef(0.0, 7.0f, 0.0f);
         glRotatef(-90, 1.0f, 0.0f, 0.0f);
@@ -15,8 +65,7 @@ void Robot::Draw() {
         // Efeito rounded
         glRotatef(90, 1.0f, 0.0f, 0.0f);
         glTranslatef(0.0f, 6.0f, 0.0f);
-        glutSolidCone(1.5f, 0.0f, 100, 100);
-
+        glutSolidSphere(1.5f, 100, 100);
     glPopMatrix();
 
     // Antena
@@ -57,6 +106,7 @@ void Robot::Draw() {
     glPopMatrix();
 
     glPushMatrix();
+        if(isWalking) glRotatef(-rotx - 5, 1.0f, 0.0f, 0.0f);
         // Braço esquerdo
         glPushMatrix();
             glColor3fv(members_color);
@@ -72,6 +122,7 @@ void Robot::Draw() {
     glPopMatrix();
 
     glPushMatrix();
+        if(isWalking) glRotatef(rotx + 5, 1.0f, 0.0f, 0.0f);
         // Braço direito
         glColor3fv(members_color);
         glPushMatrix();
@@ -86,6 +137,7 @@ void Robot::Draw() {
     glPopMatrix();
 
     glPushMatrix();
+        if(isWalking) glRotatef(-rotx, 1.0f, 0.0f, 0.0f);
         glTranslatef(0, 0, 0);
         // Perna direita
         glPushMatrix();
@@ -105,6 +157,7 @@ void Robot::Draw() {
     glPopMatrix();
 
     glPushMatrix();
+        if(isWalking) glRotatef(rotx, 1.0f, 0.0f, 0.0f);
         glTranslatef(0, 0, 0);
         // Perna esquerda
         glPushMatrix();
@@ -125,5 +178,10 @@ void Robot::Draw() {
 }
 
 void Robot::Walk() {
-
+    if(rotx < 15 && !flag) rotx += 1.5;
+    else if (rotx > 0) flag = true;
+    if(flag) {
+        rotx -= 1.5;
+        if(rotx == -15) flag = false;
+    }
 }
