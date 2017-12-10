@@ -16,7 +16,7 @@
 
 #define WIDTH 800
 #define HEIGHT 600
-#define FPS 40
+#define FPS 100
 
 Objects ob;
 Camera cam;
@@ -28,24 +28,34 @@ int pos = 0;
 float angle = 0.0;
 // actual vector representing the camera's direction
 float lx = 0.0f, lz = -1.0f;
-
 float fraction = 1.0f;
 float rot = .0;
+bool flag = true;
 
 void Init() {
+    // Texturas
+    char *filenameArray[2] = {
+        (char *) WALL_TEXTURE_SRC,
+        (char *) FLOOR_TEXTURE_SRC
+    };
+    
     // Posição incial do robo
-    r.x = 355;
+    r.x = 480;
     r.y = 4.0f;
-    r.z = 390;
+    r.z = 480;
 
     // Inicialização da camera
-    cam.z = 600.0f;
+    cam.z = 700.0f;
     cam.type = TOPDOWN_CAM;
+
+    // Carrega as texturas
+    m.initTextures(filenameArray);
+    
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     // Habilita o z-buffer
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_MULTISAMPLE);
+    //glEnable(GL_MULTISAMPLE);
     glDepthFunc(GL_LESS);
 }
 
@@ -56,7 +66,7 @@ void onDisplay() {
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     if(cam.type == TOPDOWN_CAM)
-        gluLookAt(VIEW_SIZE/2, cam.z, 600.0 , VIEW_SIZE/2, 10.0, VIEW_SIZE/2, 0.0, 1.0, 0.0);
+        gluLookAt(VIEW_SIZE/2, cam.z, 300.0 , VIEW_SIZE/2, 10.0, VIEW_SIZE/2, 0.0, 1.0, 0.0);
     else if(cam.type == FOCUSED_CAM)
         gluLookAt(r.x - (WALL_SIZE*3) * sin(angle), 60.0f, r.z + (WALL_SIZE*3) * cos(angle), r.x + lx, 20.0, r.z + lz, 0.0, 1.0, 0.0);
 
@@ -101,6 +111,7 @@ void onPressKey(unsigned char key, int x, int y) {
             lx = sin(angle);
             lz = -cos(angle);
             rot -= 90.0f;
+            if(rot == 0 || abs(rot) == 180) lx = 0.0f;
             pos--;
             break;
         case 's':
@@ -114,6 +125,7 @@ void onPressKey(unsigned char key, int x, int y) {
             lx = sin(angle);
             lz = -cos(angle);
             rot += 90.0f;
+            if(rot == 0 || abs(rot) == 180) lx = 0.0f;
             pos++;
             break;
         case '-':
@@ -122,6 +134,9 @@ void onPressKey(unsigned char key, int x, int y) {
         case '+':
             cam.z += 10;
             break;
+        case 'e':
+          lx = 0.0f;
+          break;
     }
     if(abs(pos) == 4) {
         pos = lx = rot = angle = .0;

@@ -4,7 +4,10 @@ LIBGL = -lGL -lGLU -lglut
 SRC_DIR = src/
 
 all: robot maze objects
-	$(CC) $(SRC_DIR)main.cpp $(SRC_DIR)robot.o $(SRC_DIR)maze.o $(SRC_DIR)objects.o -o main $(LIBGL) $(LIBC)
+	$(CC) $(SRC_DIR)main.cpp $(SRC_DIR)robot.o $(SRC_DIR)maze.o $(SRC_DIR)objects.o $(SRC_DIR)RgbImage.cpp -o main $(LIBGL) $(LIBC)
+utils:
+	$(CC) -c $(SRC_DIR)RgbImage.cpp
+	mv RgbImage.o $(SRC_DIR)
 objects:
 	$(CC) -c $(SRC_DIR)objects.cpp
 	mv objects.o $(SRC_DIR)
